@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Research prototype of a transparent, rule-based conversational router with context-aware intent classification, confidence-aware abstention, entity extraction, feature-attribution explanations, and reproducible evaluation tooling."><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><title>Technical Notes — Explainable LLM Agent</title>
+<script>try{var t=localStorage.getItem('eca-theme');if(t==='light')document.documentElement.classList.add('light')}catch(e){}</script>
+<link rel="stylesheet" href="css/shared.css"></head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><div class="container nav"><a class="brand" href="index.html"><span class="brand-mark"></span><span>Explainable LLM Agent</span></a><nav class="nav-links" aria-label="Primary"><a data-navlink href="index.html">Overview</a><a data-navlink href="xai-assistant-conversational-intelligence.html">Live demo</a><a data-navlink href="xai-interactive-dashboard.html">Evaluation</a><a data-navlink href="technical-architecture.html">Architecture</a></nav><div class="nav-actions"><button class="icon-btn" type="button" onclick="toggleTheme()" aria-label="Toggle light/dark theme"><span data-theme-icon>☼</span></button><button class="menu-btn" type="button" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false">☰</button></div></div></header>
+<main id="main"><section class="hero"><div class="container"><span class="eyebrow">Technical notes</span><h1 style="font-size:clamp(34px,6vw,58px)">A simple contract for future model adapters.</h1><p>The current browser implementation is intentionally self-contained. Its explanation fields can later become the contract between a real FastAPI model service and the research UI.</p></div></section><section class="section"><div class="container grid grid-2"><div class="card card-pad"><h2>Prediction contract</h2><pre class="mono" style="white-space:pre-wrap;color:var(--muted);font-size:12px">intent                 final route (or "fallback")
+candidateIntent        best-scoring intent before abstention
+confidence             0–0.98
+alternatives[]         {id, score}
+entities[]             {type, value, start, end}
+contextContribution    {intent, weight, source} | null
+thresholdDecision      {threshold, abstained}
+modelVersion           e.g. rule-based-v1.3-context
+featureContributions[] {text, weight, type}</pre><p class="muted" style="font-size:12px">This is exactly the object returned by <span class="mono">classify()</span> in js/shared.js.</p></div><div class="card card-pad"><h2>Future API boundary</h2><pre class="mono" style="white-space:pre-wrap;color:var(--muted);font-size:12px">POST /api/v1/intent
+POST /api/v1/chat
+GET  /api/v1/evaluation
+
+No API key is required by the current static prototype.</pre></div></div></section></main>
+<footer class="footer"><div class="container">API shape is documented as an upgrade boundary, not a claim that these endpoints are live.<nav class="footer-links" aria-label="Documentation"><a href="neuralcontext-landing-page.html">Research overview</a><a href="context-and-memory-management.html">Context</a><a href="model-and-rag-configuration.html">Model &amp; RAG</a><a href="performance-metrics.html">Metrics</a><a href="technical-implementation-and-api-docs.html">API notes</a><a href="deployment-and-mlops-dashboard.html">Reproducibility</a></nav></div></footer>
+<script src="js/model.js"></script><script src="js/shared.js"></script></body></html>
